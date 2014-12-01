@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LED Matrix Editor</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- Page styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/font-awesome.css">
+    <!-- <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"> -->
+</head>
+
+  <body>
+    <header class="app-bar promote-layer">
+      <div class="app-bar-container">
+        <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
+      </div>
+    </header>
+    <nav class="navdrawer-container promote-layer"></nav>
+    <main>
+      <div id="help-text"></div>
+      <div id="drawing"></div>
+      <div id="tweets"></div>
+    </main>
+    <footer class="app-bar app-bar-footer promote-layer">
+      <div class="app-bar-container"></div>
+    </footer>
+    <!-- #    -->
+    <script id="editmenu" type="text/ractvie">
+      {{#global}}
+      <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
+      <button class="menu" on-click="onPenModeChange"><i class="fa {{pen ? 'fa-pencil' : 'fa-eraser'}}"></i></button>
+      <button class="menu" on-click="onClear" on-mouseover="helpClear" on-mouseout="helpOut"><i class="fa fa-close"></i></button>
+      <button class="menu" on-click="onFrameChange"><i class="fa fa-forward"></i></button>
+      <button class="menu" on-click="onPlayToggle" on-mouseover="helpPlay" on-mouseout="helpOut"><i class="fa {{play ? 'fa-pause' : 'fa-play'}}"></i></button>
+      {{/global}}
+      {{^global}}
+      <button class="menu" on-click="onFrameDelete"><i class="fa fa-minus-circle"></i></button>
+      <button class="menu" on-click="onFrameAdd"><i class="fa fa-plus-circle"></i></button>
+      <button class="menu" on-click="onSceneSave"><i class="fa fa-save"></i></button>
+      <div style="padding:15px; overflow:hidden;" class="sct"></div>
+      {{/global}}
+      
+    </script>
+    <script id="help" type="text/ractvie">
+      {{#hover}}
+      {{#clear}}
+      現在のシーンをループ再生・停止
+      {{/clear}}
+      {{^clear}}リセット{{/clear}}
+      {{/hover}}
+      {{^hover}}
+      {{#nicename}}
+      {{nicename}}を編集
+      {{/nicename}}
+      {{^nicename}}
+      新規シーンを編集
+      {{/nicename}}
+      - {{#pen}}ペン{{/pen}}{{^pen}}消しゴム{{/pen}} -
+      {{/hover}}
+      {{#frame}}
+      <b> {{current}} / {{total}}</b>
+      {{/frame}}
+      
+    </script><script id="drawer" type="text/ractv">
+    <ul class="alt">
+      <h4>Settings</h4>
+      <ul>
+        <li>
+          <button on-click="onChangeInputMode" class="menu"><i class="fa fa-wifi"></i></button>{{#setupMode}}
+          <select style="max-width:170px; color:#333 !important;" on-change="onChangeWifiEnv">
+            <option value="-1">---- rescan ssid ----</option>{{#ssid:key}}
+            <option value="{{key}}">{{value}}</option>{{/ssid}}
+          </select>{{/setupMode}}
+          {{^setupMode}}
+          <input name="textssid" type="text" style="width:168px;" placeholder="SSID" value="{{textssid}}">{{/setupMode}}
+        </li>{{^setupMode}}
+        <li>
+          <button on-click="onChangeEncrypt" style="width:100%;" class="menu">&nbsp;暗号化方式：{{encryptMode == 0 ? "WPA/WPA2" : encryptMode == 1  ? "WEP" : "OPEN"}}
+          </button>
+        </li>{{/setupMode}}
+        <li>
+          <button disabled="disabled" class="menu"><i class="fa fa-lock"></i></button>
+          <input name="ssidpswd" type="password" style="width:135px;" placeholder="PASSWORD" value="{{pswd}}"><button id="chwifi" class="menu togglemenu" on-click="onChangeWifi" {{#scanning}}disabled="disabled"{{/scanning}}><i class="fa {{scanning ? "fa-refresh fa-spin" : "fa-power-off"}}"></i></button>
+        </li>
+        <li>
+          <button disabled="disabled" class="menu"><i class="fa fa-twitter"></i></button><input name="twitid" type="text" style="width:135px;" placeholder="Twitter ID" value="{{twit}}" {{#connected}}disabled="disabled"{{/disabled}}>
+          <button on-click="onStreamToggle" class="menu togglemenu"><i class="fa {{connected ? "fa-refresh fa-spin" : "fa-play"}}"></i>
+          </button>
+        </li>
+        <li class="twoption">
+          <button on-click="setRotate" style="width:100%;" class="menu"><i class="menu fa fa-rotate-left"></i>&nbsp;向き：ふつう</button>
+        </li>
+        <li class="twoption">
+          <button on-click="setAnim" style="width:100%;" class="menu"><i class="menu fa fa-film"></i>&nbsp;表示：{{#anim}}スクロール{{/anim}}{{^anim}}コマ送り{{/anim}}</button>
+        </li>
+        <li class="twoption">
+          <button on-click="setSpeed" style="width:100%;" class="menu"><i class="menu fa fa-tachometer"></i>&nbsp;スピード：{{#speed}}はやい{{/speed}}{{^speed}}おそい{{/speed}}</button>
+        </li>{{#saved:i}}
+        <li>
+          <input type="text" placeholder="{{label}}" value="{{nicename}}" style="max-width:184px;">
+          <button on-click="onEditSaved" class="menu togglemenu raddiomenu"><i class="fa fa-edit"></i></button>
+        </li>{{/saved}}
+      </ul>
+    </ul></script>
+    <!-- #--><!-- build:js scripts/vendor.min.js -->
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/ractive/ractive.js"></script>
+<script src="bower_components/pixi/bin/pixi.js"></script>
+<script src="bower_components/socket.io-client/socket.io.js"></script>
+<!-- endbuild -->
+<!-- build:js scripts/main.min.js -->
+<script src="scripts/main.js"></script>
+<!-- endbuild -->
+<script>window.twttr=function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
+</html>

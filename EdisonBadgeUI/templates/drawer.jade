@@ -1,0 +1,60 @@
+| <script id="drawer" type="text/ractv">
+
+ul.alt
+  h4 Settings
+  ul
+    li
+      button.menu(on-click='onChangeInputMode')
+        i.fa.fa-wifi
+      | {{#setupMode}}
+      select(style='max-width:170px; color:#333 !important;', on-change='onChangeWifiEnv')
+        option(value='-1') ---- rescan ssid ----
+        | {{#ssid:key}}
+        option(value='{{key}}') {{value}}
+        | {{/ssid}}
+      | {{/setupMode}}
+      | {{^setupMode}}
+      input(name='textssid',type='text',style='width:168px;',placeholder='SSID', value='{{textssid}}')
+      | {{/setupMode}}
+      
+    | {{^setupMode}}
+    li
+      button.menu(on-click='onChangeEncrypt', style='width:100%;')
+        - var enc = '{{encryptMode == 0 ? "WPA/WPA2" : encryptMode == 1  ? "WEP" : "OPEN"}}';
+        | &nbsp;暗号化方式：!{enc}
+    | {{/setupMode}}
+      
+    li
+      button.menu(disabled='disabled'): i.fa.fa-lock
+      input(name='ssidpswd',type='password',style='width:135px;',placeholder='PASSWORD', value='{{pswd}}')
+      | <button id="chwifi" class="menu togglemenu" on-click="onChangeWifi" {{#scanning}}disabled="disabled"{{/scanning}}>
+      - var scnIcon = '{{scanning ? "fa-refresh fa-spin" : "fa-power-off"}}';
+      i.fa(class!='#{scnIcon}')
+      | </button>
+    li
+      button.menu(disabled='disabled'): i.fa.fa-twitter
+      | <input name="twitid" type="text" style="width:135px;" placeholder="Twitter ID" value="{{twit}}" {{#connected}}disabled="disabled"{{/disabled}}>
+      button.menu.togglemenu(on-click='onStreamToggle')
+        - var cnIcon = '{{connected ? "fa-refresh fa-spin" : "fa-play"}}';
+        i.fa(class!='#{cnIcon}')
+        
+    li.twoption
+      button.menu(on-click='setRotate', style='width:100%;')
+        i.menu.fa.fa-rotate-left
+        | &nbsp;向き：ふつう
+    li.twoption
+      button.menu(on-click='setAnim', style='width:100%;')
+        i.menu.fa.fa-film
+        | &nbsp;表示：{{#anim}}スクロール{{/anim}}{{^anim}}コマ送り{{/anim}}
+    li.twoption
+      button.menu(on-click='setSpeed', style='width:100%;')
+        i.menu.fa.fa-tachometer
+        | &nbsp;スピード：{{#speed}}はやい{{/speed}}{{^speed}}おそい{{/speed}}
+      
+    | {{#saved:i}}
+    li
+      input(type='text',placeholder='{{label}}',value='{{nicename}}',style='max-width:184px;')
+      button.menu.togglemenu.raddiomenu(on-click='onEditSaved'): i.fa.fa-edit
+    | {{/saved}}
+
+| </script>

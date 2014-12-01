@@ -1,0 +1,27 @@
+{
+    "name": "EdisonBadgeUI",
+    "version": "0.1.0",
+    "authors": [
+        "Takanobu INAFUKU <takanobu.inafact@gmail.com>"
+    ],
+    "moduleType": [
+        "globals"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "app/bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "font-awesome": "~4.2.0",
+        "socket.io-client": "~1.2.0",
+        "jquery": "^1.11.0",
+        "pixi": "~2.1.1",
+        "underscore": "~1.7.0",
+        "ractive": "~0.6.1"
+    }
+}

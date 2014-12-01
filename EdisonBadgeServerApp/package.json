@@ -1,0 +1,49 @@
+{
+    "name": "EdisonBadgeServerApp",
+    "description": "",
+    "version": "0.1.0",
+    "homepage": "",
+    "author": {
+        "name": "",
+        "email": ""
+    },
+    "repository": {
+        "type": "",
+        "url": ""
+    },
+    "bugs": {
+        "url": ""
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": ""
+        }
+    ],
+    "main": "lib/app",
+    "bin": {
+        "EdisonBadgeServerApp": "bin/EdisonBadgeServerApp.js"
+    },
+    "engines": {
+        "node": ">= 0.10.26",
+        "npm": ">=1.4.3"
+    },
+    "scripts": {
+        "test": "gulp test"
+    },
+    "dependencies": {
+        "lodash": "^2.4.1",
+        "socket.io": "^1.2.0",
+        "twit": "^1.1.18"
+    },
+    "devDependencies": {
+        "chai": "~1.8.0",
+        "gulp": "~3.8.0",
+        "gulp-jshint": "~1.3.4",
+        "gulp-mocha": "~0.4.1",
+        "gulp-nodemon": "^1.0.4",
+        "jshint-stylish": "~0.1.5",
+        "mocha": "~1.10.0"
+    },
+    "keywords": []
+}

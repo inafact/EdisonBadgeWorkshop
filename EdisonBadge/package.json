@@ -1,0 +1,16 @@
+{
+    "name": "EdisonBadge",
+    "description": "I2C LED matrix controller w/ html5-based drawing tool & pulling data from Twitter Streaming API (via proxy server tool)",
+    "version": "0.1.0",
+    "main": "main.js",
+    "engines": {
+        "node": ">=0.10.0"
+    },
+    "dependencies": {
+        "express": "~4.4.5",
+        "lodash": "^2.4.1",
+        "lowdb": "^0.5.1",
+        "socket.io": "^1.2.0",
+        "socket.io-client": "^1.2.0"
+    }
+}

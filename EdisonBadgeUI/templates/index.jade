@@ -1,0 +1,61 @@
+doctype html
+html(lang='')
+
+  include head.html
+  
+  body
+    header.app-bar.promote-layer
+      .app-bar-container
+        button.menu
+          img(src='images/hamburger.svg', alt='Menu')
+
+    nav.navdrawer-container.promote-layer
+
+    main
+      #help-text
+      #drawing
+      #tweets
+
+    footer.app-bar.app-bar-footer.promote-layer
+      .app-bar-container
+
+    // #    
+    script#editmenu(type='text/ractvie').
+      {{#global}}
+      <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
+      <button class="menu" on-click="onPenModeChange"><i class="fa {{pen ? 'fa-pencil' : 'fa-eraser'}}"></i></button>
+      <button class="menu" on-click="onClear" on-mouseover="helpClear" on-mouseout="helpOut"><i class="fa fa-close"></i></button>
+      <button class="menu" on-click="onFrameChange"><i class="fa fa-forward"></i></button>
+      <button class="menu" on-click="onPlayToggle" on-mouseover="helpPlay" on-mouseout="helpOut"><i class="fa {{play ? 'fa-pause' : 'fa-play'}}"></i></button>
+      {{/global}}
+      {{^global}}
+      <button class="menu" on-click="onFrameDelete"><i class="fa fa-minus-circle"></i></button>
+      <button class="menu" on-click="onFrameAdd"><i class="fa fa-plus-circle"></i></button>
+      <button class="menu" on-click="onSceneSave"><i class="fa fa-save"></i></button>
+      <div style="padding:15px; overflow:hidden;" class="sct"></div>
+      {{/global}}
+
+    script#help(type='text/ractvie').
+      {{#hover}}
+      {{#clear}}
+      現在のシーンをループ再生・停止
+      {{/clear}}
+      {{^clear}}リセット{{/clear}}
+      {{/hover}}
+      {{^hover}}
+      {{#nicename}}
+      {{nicename}}を編集
+      {{/nicename}}
+      {{^nicename}}
+      新規シーンを編集
+      {{/nicename}}
+      - {{#pen}}ペン{{/pen}}{{^pen}}消しゴム{{/pen}} -
+      {{/hover}}
+      {{#frame}}
+      <b> {{current}} / {{total}}</b>
+      {{/frame}}
+      
+    include drawer
+    // #
+    
+    include script.html

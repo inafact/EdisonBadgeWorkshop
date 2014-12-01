@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LED Matrix Editor</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- Page styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/font-awesome.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+</head>
+
+  <body>
+    <header class="app-bar promote-layer">
+      <div class="app-bar-container">
+        <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
+      </div>
+    </header>
+    <nav class="navdrawer-container promote-layer"></nav>
+    <main>
+      <div id="help-text"></div>
+      <div id="drawing"></div>
+    </main>
+    <footer class="app-bar app-bar-footer promote-layer">
+      <div class="app-bar-container"></div>
+    </footer>
+    <script id="editmenu" type="text/ractvie">
+      {{#global}}
+      <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
+      {{#edit}}
+      <button class="menu" on-click="onPenModeChange"><i class="fa {{pen ? 'fa-pencil' : 'fa-eraser'}}"></i></button>
+      <button class="menu" on-click="onClear" on-mouseover="helpClear" on-mouseout="helpOut"><i class="fa fa-close"></i></button>
+      <button class="menu" on-click="onFrameChange"><i class="fa fa-forward"></i></button>
+      <button class="menu" on-click="onPlay" on-mouseover="helpPlay" on-mouseout="helpOut"><i class="fa {{play ? 'fa-play' : 'fa-pause'}}"></i></button>
+      {{/edit}}
+      {{^edit}}
+      <button class="menu" on-click="onStorageChange"><i class="fa {{storage ? 'fa-hdd-o' : 'fa-twitter'}}"></i></button>
+      <button class="menu" on-click="onPlay" on-mouseover="helpPlay" on-mouseout="helpOut"><i class="fa {{play ? 'fa-refresh fa-spin' : 'fa-pause'}}"></i></button>
+      {{/edit}}
+      {{/global}}
+      {{^global}}
+      <button class="menu" on-click="onFrameDelete"><i class="fa fa-minus-circle"></i></button>
+      <button class="menu" on-click="onFrameAdd"><i class="fa fa-plus-circle"></i></button>
+      <button class="menu" on-click="onSceneSave"><i class="fa fa-save"></i></button>
+      <div style="padding:15px; overflow:hidden;" class="sct"></div>
+      {{/global}}
+      
+    </script>
+    <script id="help" type="text/ractvie">
+      {{#hover}}
+      {{#clear}}
+      {{#edit}}フレームをループ再生・停止{{/edit}}{{^edit}}トラッキングを開始する・止める{{/edit}}
+      {{/clear}}
+      {{^clear}}リセット{{/clear}}
+      {{/hover}}
+      {{^hover}}
+      {{#edit}}
+      編集モード
+      {{#pen}}ペン{{/pen}}{{^pen}}消しゴム{{/pen}}
+      {{/edit}}
+      {{^edit}}
+      プレビュー
+      {{#storage}}・ローカルのデータ{{/storage}}{{^storage}}・Twitterからデータを取得{{/storage}}
+      {{/edit}}
+      {{/hover}}
+      {{#frame}}
+      <b> {{current}} / {{total}}</b>
+      {{/frame}}
+      
+    </script>
+    <script id="drawer" type="text/ractvie">
+      <h4>Settings</h4>
+      <ul class="alt">
+      <li>
+      <button class="menu"><i class="menu fa fa-plug"></i></button>
+      <input type="text" placeholder="Device Name" disabled="disabled" style="max-width:170px;">
+      </li>
+      <li>
+      <button class="menu"><i class="fa fa-wifi"></i></button>
+      <select style="max-width:170px;">
+      <option value="1">ap-inafact 12345678sfhdufddfdf</option>
+      <option value="2">ap-inafact</option>
+      <option value="3">ap-inafact</option>
+      </select>
+      </li>
+      <li>
+      <button class="menu"><i class="fa fa-twitter"></i></button>
+      <input name="twitid" type="text" style="width:135px;" placeholder="@Track Twitter ID" value="{{twit}}" {{#connected}}disabled="disabled"{{/connected}}>
+      <button class="menu" on-click="onPlaySaved"><i class="fa fa-play"></i></button>
+      </li>
+      {{#saved:i}}
+      <li>
+      <input  type="text" placeholder="title" value="test">
+      {{label}}
+      <button class="menu" on-click="onEditSaved"><i class="fa fa-edit"></i></button>
+      <button class="menu" on-click="onPlaySaved"><i class="fa fa-play"></i></button>
+      </li>
+      {{/saved}}
+      <li>
+      <input type="text" placeholder="title" value="New File" style="width:58%;">
+      <button class="menu" on-click="onEditSaved"><i class="fa fa-edit"></i></button>
+      <button class="menu" on-click="onPlaySaved"><i class="fa fa-play"></i></button>
+      </li>
+      <li>
+      <input type="text" placeholder="title" value="test" style="width:58%;">
+      <button class="menu" on-click="onEditSaved"><i class="fa fa-edit"></i></button>
+      <button class="menu" on-click="onPlaySaved"><i class="fa fa-play"></i></button>
+      </li>
+      </ul>
+      
+    </script><!-- build:js scripts/vendor.min.js -->
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/ractive/ractive.js"></script>
+<script src="bower_components/pixi/bin/pixi.js"></script>
+<script src="bower_components/socket.io-client/socket.io.js"></script>
+<!-- endbuild -->
+<!-- build:js scripts/main.min.js -->
+<script src="scripts/main.js"></script>
+<!-- endbuild -->
+<script>window.twttr=function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
+</html>

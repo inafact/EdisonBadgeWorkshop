@@ -4,40 +4,44 @@
 
 # ワークショップに参加していない一般の方・パッケージされたソフトウェアとしてのみ利用したい方向けのインストラクション
 
+
 ## 事前準備
 
-1. ホワイトリストへのIP追加
+1. ホワイトリスト（接続許可リスト）へのIP追加
 
     アプリケーションは[Intel XDK IoT Edition](https://software.intel.com/en-us/html5/xdk-iot)（以降XDKと呼びます）を利用してEdisonへのアップロードが行われます。
     XDKをご利用のコンピューターにインストールした後、コンピューターに接続されたEdison側でXDKからの接続を許可する必要があります。
 
-    シリアルポート経由もしくはssh経由でEdisonにログインし、
+    ssh経由でEdisonにログインし、下記のコマンドを実行します。
+
     ```shellscript
     $ xdk-whitelist --add 192.168.2.2
     ```
-    を実行します。
 
 2. 最新版のlibmraaの導入
 
     EagletボードからLEDマトリクスをコントロールするために、I2CのライブラリをEdisonで利用出来るようにします。
 
-    シリアルポート経由もしくはssh経由でEdisonにログインし、
+    ssh経由でEdisonにログインし、下記のコマンドを実行します。
+
     ```shellscript
-    $ echo "src intel-iotdk http://iotdk.intel.com/repos/1.1/intelgalactic" > /etc/opkg/intel-iotdk.conf
-    $ opkg update && okpkg upgrade
+    $ echo "src mraa-upm http://iotdk.intel.com/repos/1.1/intelgalactic" > /etc/opkg/mraa-upm.conf
+    $ opkg update
+    $ opkg install libmraa0
     ```
-    を実行します。
 
 
 ## パッケージされたプロジェクトファイルの入手
 
 下記のリンクから（Twitterのトラッキングを行うサーバー用アプリケーションを除く）コンパイルとバンドル作業を行ったパッケージ済みのプロジェクトファイルをダウンロードできます。
-XDKからプロジェクトファイルを開いてアップロードするだけで使用できます。
+XDKからプロジェクトファイルを開いてアップロードすると使用できます。
 
 https://www.dropbox.com/s/tkdu8munzg8gvyx/EdisonBadge_20141129.zip?dl=0
 
 zipファイルを展開してできたフォルダ内にある__EdisonBadge.xdk__をXDKから開いてください。
 
+
+-------------------------------------------------------------------------------
 
 # プロジェクトを一からコンパイルして利用したい方、ソースコードを自由に改変して使用したい方向けのインストラクション
 
@@ -51,10 +55,17 @@ Wi-Fiネットワーク接続管理も行います。
 
 ## EdisonBadgeUI
 
-上記EdisonBadge用のUIとして動作するhtml5ベースのwebアプリケーションです。下記の操作をwebブラウザから行えます。
+上記EdisonBadge用のUIとして動作するhtml5ベースのシングルページwebアプリケーションです。下記の操作をwebブラウザから行えます。
 
+* Canvasを利用したパターンの描画（ドローツール・消しゴムツール・パターンの全消去）
+* パターンをフレームとして追加・削除、コマ送りによる表示フレームの切り替え
+* 追加したフレームによるコマ送りアニメーションの実行・停止
+* 作成したフレームのセットをシーンとしてEdison内のファイルに保存
+* 保存済みシーンのリロード
+* Wi-Fiアクセスポイントの設定（スキャンされたアクセスポイントからの選択もしくはSSIDの直接入力）
+* トラッキングするTwitter IDの設定
 
-リソースファイルの圧縮・結合を行ったものがEdison上のNode.jsサーバーでホストされます。
+EdisonBadgeUI以下のディレクトリにあるリソースファイルの圧縮・結合を行ったものをEdison上のNode.jsサーバーでホストして使用します。
 
 ## EdisonBadgeServerApp
 

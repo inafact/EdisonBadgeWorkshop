@@ -8,8 +8,31 @@ WIP
 
 ## Getting Started
 
+### prerequets
+
+Node.jsからI2C経由で[LEDマトリクス基板](https://www.switch-science.com/catalog/2071/)をコントロールするために、c++で書かれたネィテイブのモジュールを利用します。
+Edisonに[libmrra](https://github.com/intel-iot-devkit/mraa)を導入し、Edison上で_./lib/matrix_以下のソースからモジュールをコンパイルする必要があります。
+
+__libmraaの導入__
+
+```bash
+$ echo "src mraa-upm http://iotdk.intel.com/repos/1.1/intelgalactic" > /etc/opkg/mraa-upm.conf
+$ opkg update
+$ opkg install libmraa0
+```
+
+__ネイティブモジュールのコンパイル__
+
+```bash
+$ npm install -g node-gyp
+$ cd ./lib/matrix
+$ ./build.sh
+```
+
 
 ### Usage
+
+XDKからプロジェクトのアップロードと起動を行います。
 
 
 ## License 

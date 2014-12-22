@@ -3,12 +3,12 @@ EdisonBadge
 
 WIP
 
-> Intel XDK IoT Edistion project files for EdisonBadgeWorkshop
+> Intel XDK IoT Edition project files for EdisonBadgeWorkshop
 
 
 ## Getting Started
 
-### prerequets
+### Prerequets
 
 Node.jsからI2C経由で[LEDマトリクス基板](https://www.switch-science.com/catalog/2071/)をコントロールするために、c++で書かれたネィテイブのモジュールを利用します。
 Edisonに[libmrra](https://github.com/intel-iot-devkit/mraa)を導入し、Edison上で_./lib/matrix_以下のソースからモジュールをコンパイルする必要があります。
@@ -29,6 +29,11 @@ $ cd ./lib/matrix
 $ ./build.sh
 ```
 
+ネィテイブモジュールは_./lib/matrix/build_にコンパイルされます。
+
+XDKからプロジェクトのアップロードとアプリケーションの起動を行う場合は、Edison上でコンパイルされたbuildディレクトリをホストPC上の（ここではXDKを起動しているPC）プロジェクト内の同じ場所にコピーした上で、XDKからアップロードとアプリケーションの動を行ってください。
+
+また、ブラウザベースのUIを使う場合は、[EdisonBadgeUI](https://github.com/inafact/EdisonBadgeWorkshop/tree/master/EdisonBadgeUI)をビルドしてできた_dist_フォルダの中身を_./lib/public_にコピーしてからプロジェクトのアップロードを行ってください。
 
 ### Usage
 

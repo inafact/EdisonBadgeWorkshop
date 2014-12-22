@@ -2,14 +2,14 @@
     "name": "EdisonBadgeServerApp",
     "description": "",
     "version": "0.1.0",
-    "homepage": "",
+    "homepage": "https://github.com/inafact/EdisonBadgeWorkshop",
     "author": {
-        "name": "",
-        "email": ""
+        "name": "Takanobu Inafuku",
+        "email": "takanobu.inafact@gmail.com"
     },
     "repository": {
-        "type": "",
-        "url": ""
+        "type": "git",
+        "url": "https://github.com/inafact/EdisonBadgeWorkshop/tree/master/EdisonBadgeServerApp"
     },
     "bugs": {
         "url": ""
@@ -20,10 +20,7 @@
             "url": ""
         }
     ],
-    "main": "lib/app",
-    "bin": {
-        "EdisonBadgeServerApp": "bin/EdisonBadgeServerApp.js"
-    },
+    "main": "app",
     "engines": {
         "node": ">= 0.10.26",
         "npm": ">=1.4.3"

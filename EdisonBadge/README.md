@@ -40,7 +40,19 @@ XDKからプロジェクトのアップロードとアプリケーションの�
 XDKからプロジェクトのアップロードとアプリケーションの起動を行います。
 
 
-## License 
+### Notice
+
+**_settings.json内に記述されているTwitter連動に使用される外部サーバーアプリケーションは基本的にMaker Fair Tokyo 2014期間中のみ提供されているもののため、予告なく停止される場合があります。_**
+
+**_必要な場合は_**
+
+**_https://github.com/inafact/EdisonBadgeWorkshop/tree/master/EdisonBadgeServerApp_**
+
+**_のソースコードを元にご自分でアプリケーションを外部のサーバーで稼働させて、上記の設定を変更してください。
+また、このアプリケーションはEdison上で動かすことも可能です。_**
+
+
+## License
 
 The MIT License
 

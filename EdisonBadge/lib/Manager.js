@@ -9,9 +9,6 @@ var sceneStore = ldb(path.resolve(__dirname, '../', 'scenes.json'));
 //
 var DEFAULTS = {
     PROXY_URL:_.has(stateStore('g').first().value(), 'proxyUrl') ? stateStore('g').first().value().proxyUrl : '',
-    // PROXY_URL:'http://ec2-54-64-161-131.ap-northeast-1.compute.amazonaws.com:8888',
-    // PROXY_URL:'http://dev.inafact.net:8888';
-    // PROXY_URL:'http://192.168.1.18:8888';
     LOOP_INTERVAL:_.has(stateStore('g').first().value(), 'loopInterval') ? stateStore('g').first().value().loopInterval : 500,
     SCROLL_SPEED:_.has(stateStore('g').first().value(), 'scrollSpeed') ? stateStore('g').first().value().scrollSpeed : 100
 };

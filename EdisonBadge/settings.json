@@ -1,7 +1,7 @@
 {
   "g": [
     {
-        "proxyUrl": "http://ec2-54-64-161-131.ap-northeast-1.compute.amazonaws.com:8888",
+        "proxyUrl": "http://dev.inafact.net:8888",
         "scrollSpeed": 110
     }
   ]
